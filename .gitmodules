@@ -1,0 +1,3 @@
+[submodule "lib/external-library"]
+	path = lib/external-library
+	url = ./lib/external-library
