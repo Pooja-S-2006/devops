@@ -1,12 +1,12 @@
 // Demo application to test all utilities
-import Calculator from './app.js';
-import { formatDate, formatTime } from './date-formatter.js';
-import { validateEmail, validatePhone } from './validators.js';
-import { chunk, unique, shuffle } from './array-utils.js';
-import { sanitizeInput, generateRandomString } from './security.js';
-import { Logger } from './logger.js';
-import { StorageManager } from './storage.js';
-import { PerformanceMonitor } from './performance.js';
+import Calculator from './src/app.js';
+import { formatDate, formatTime } from './src/date-formatter.js';
+import { validateEmail, validatePhone } from './src/validators.js';
+import { chunk, unique, shuffle } from './src/array-utils.js';
+import { sanitizeInput, generateRandomString } from './src/security.js';
+import { Logger } from './src/logger.js';
+import { StorageManager } from './src/storage.js';
+import { PerformanceMonitor } from './src/performance.js';
 
 // Initialize utilities
 const logger = new Logger('info');
@@ -56,12 +56,16 @@ async function runDemo() {
     console.log('Random string:', generateRandomString(8));
     console.log('');
     
-    // Storage demo
+    // Storage demo (skip in Node.js environment)
     console.log('6. Storage Demo:');
-    storage.set('user', { name: 'Demo User', score: 100 });
-    console.log('Stored user:', storage.get('user'));
-    storage.remove('user');
-    console.log('User after removal:', storage.get('user'));
+    if (typeof localStorage !== 'undefined') {
+        storage.set('user', { name: 'Demo User', score: 100 });
+        console.log('Stored user:', storage.get('user'));
+        storage.remove('user');
+        console.log('User after removal:', storage.get('user'));
+    } else {
+        console.log('localStorage not available in Node.js environment');
+    }
     console.log('');
     
     // Performance demo
